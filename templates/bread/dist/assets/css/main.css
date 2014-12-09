@@ -1,0 +1,172 @@
+/* Header COLOR
+header color here's a predefined colors uncomment the one
+you prefer or create your own*/
+body {
+  background: #fff;
+  font-size: 14px;
+  line-height: 1.7em;
+  font-family: Dosis;
+}
+a {
+  text-decoration: none;
+}
+.header {
+  background: #3f5767;
+  z-index: 1;
+  overflow: hidden;
+  width: 100%;
+  height: 100px;
+  top: 0;
+  left: 0;
+  position: fixed !important;
+  z-index: 3;
+}
+/* LOGO container */
+.logo-container {
+  padding: 30px;
+}
+/*TOP MENU*/
+.menu-container {
+  padding: 13px;
+}
+ul.menu {
+  list-style: none;
+  float: right;
+  padding: 0;
+}
+ul.menu li {
+  float: left;
+}
+ul.menu li a {
+  font-weight: bold;
+  font-size: 14px;
+  padding: 10px 15px;
+  color: #999999;
+  display: block;
+}
+ul.menu li a:hover {
+  border-bottom: 2px solid #999999;
+}
+.intro {
+  background: #3f5767;
+  z-index: 1;
+  overflow: hidden;
+  width: 100%;
+  height: 100%;
+  top: 0;
+  left: 0;
+  position: fixed !important;
+}
+.intro .splash {
+  width: 70%;
+  height: 60%;
+  margin: auto;
+  position: absolute;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  right: 0;
+  text-align: center;
+}
+.intro .splash-head {
+  font-size: 100px;
+  font-weight: bold;
+  color: #999999;
+  font-weight: 100;
+  line-height: 1em;
+}
+.intro .splash-subhead {
+  color: #999999;
+  letter-spacing: 0.05em;
+  padding: 25px;
+  margin-top: -50px;
+}
+.intro .splash .pure-button {
+  background-color: none;
+  color: white;
+  padding: 0.5em 2em;
+  border-radius: 5px;
+  margin: 5px;
+}
+.intro .splash a.pure-button-primary {
+  background: none;
+  color: #999999;
+  border-radius: 5px;
+  font-size: 120%;
+  border: 2px solid #999999;
+}
+.intro .splash a.pure-button-primary:hover {
+  background: #999999;
+  color: #182228;
+  -webkit-transition: background-color 200ms linear;
+  -moz-transition: background-color 200ms linear;
+  -o-transition: background-color 200ms linear;
+  -ms-transition: background-color 200ms linear;
+  transition: background-color 200ms linear;
+}
+/*BODY CONTENT*/
+.content {
+  background: #eee;
+  width: 100%;
+  position: absolute;
+  top: 100%;
+  min-height: 100%;
+  z-index: 2;
+  /*border-top: 10px solid #ccc;*/
+  padding: 0;
+  margin: 0;
+}
+/*DEFAULT SECTION TOP*/
+.content .section-top {
+  background: #eee;
+  padding: 5px 10px;
+  text-align: center;
+  border-bottom: 1px solid #dfdfdf;
+  border-top: 1px solid #dfdfdf;
+}
+.content .section-top p {
+  padding: 0;
+  font-size: 16px;
+  color: #A7B1BB;
+  letter-spacing: 0.03em;
+}
+.content .section-top h2 {
+  color: #A7B1BB;
+  font-size: 38px;
+  background: #dfdfdf;
+  padding: 35px;
+  margin: 0;
+  opacity: .6;
+}
+.content .section-top img {
+  padding: 30px;
+  margin: 10px 0 0 0;
+  opacity: .6;
+}
+.content .section-top img:hover {
+  opacity: 1;
+}
+/*SECTIONS*/
+.section-title {
+  padding: 20px 30px;
+  background: #eee;
+}
+.section-title h1 {
+  color: #ccc;
+  border-bottom: 5px solid #dfdfdf;
+  display: block;
+  width: 50px;
+  padding: 10px 0;
+  font-size: 18px;
+}
+.row.section div {
+  background: #eee;
+  padding: 15px;
+  min-height: 350px;
+}
+.row.section div.middle {
+  border-left: 1px solid #dfdfdf;
+  border-right: 1px solid #dfdfdf;
+}
+/*PROTFOLIO*/
+/*END PORTFOLIO*/
