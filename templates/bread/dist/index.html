@@ -5,39 +5,32 @@
     <!--[if (gte IE 9)|!(IE)]><html lang="en"><![endif]-->
     <head>
         <meta charset="utf-8" />
-        <title>Creative Protfolio</title>
-        <meta name="description" content="">
+        <title>Template</title>
+
         <meta name="author" content="">
         <!--[if lt IE 9]>
             <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
         <![endif]-->
         
         <!-- Mobile Specific Metas -->
-        <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" /> 
-        
+        <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
+
         <!-- CSS Files -->
-        <!-- Normalize -->
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/3.0.1/normalize.min.css">
-        <!-- Spot css -->
-        <link rel="stylesheet" href="./assets/css/spot.css">
-        <!-- main css -->
+        <link rel="stylesheet" href="./assets/css/bare.css">
         <link rel="stylesheet" href="./assets/css/main.css">
 
-        <!-- pure css buttons -->
-        <link rel="stylesheet" href="http://yui.yahooapis.com/pure/0.5.0/buttons-min.css">
-
         <!-- JAVASCRIPT  Files -->
-        <!-- jQuery -->
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.1/jquery.min.js" 
-        type="text/javascript"></script>
-        
-        <!-- app js -->
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.1/jquery.min.js" type="text/javascript"></script>
         <script src="./assets/js/app.js" type="text/javascript"></script>
-
+        <script src="./assets/js/jquery.sticky.js" type="text/javascript"></script>
 
         <!-- FONTS -->
         <link href='https://fonts.googleapis.com/css?family=Dosis' rel='stylesheet' type='text/css'>
-        <link href='https://fonts.googleapis.com/css?family=Cutive' rel='stylesheet' type='text/css'>
+        <link href='https://fonts.googleapis.com/css?family=Noto+Sans' rel='stylesheet' type='text/css'>
+        
+        <!-- ICONS FONTS -->
+        <link href='./assets/css/icons/styles.css' rel='stylesheet' type='text/css'>
     </head>
     
     <body>
@@ -45,10 +38,14 @@
             <div class="row">
                 
                 <!-- LOGO -->
-                <div class="column grid_5 logo-container"><img alt="sweefty" src="./assets/images/logo.png"></div>
+                <div class="column grid-5 logo-container">
+                    <a href="#top">
+                    <img class="logo" alt="Sweefty" src="./assets/images/logo.png">
+                    </a>
+                </div>
                 
                 <!-- TOP MENU -->
-                <div class="column grid_7 menu-container">
+                <div class="column grid-7 menu-container">
                     <ul class="menu">
                         <li><a href="#home">Home</a></li>
                         <li><a href="#work">Work</a></li>
@@ -59,28 +56,24 @@
             </div>
         </div>
         
-        
         <div class="intro">
             <div class="splash">
                 
-                <h1 class="splash-head">Hello, We're Sweefty</h1>
+                <h1 class="splash-head">Hello, I&#x27;m Bread</h1>
                 
                 <p class="splash-subhead">
-                    Lorem ipsum dolor sit amet, consectetur adipisicing elit. Lorem ipsum dolor sit amet.
+                    A very lovely responsive, Free HTML5 Template.. Don&#x27;t you think?
                 </p>
         
                 <p>
-                    <a href="http://purecss.io" class="pure-button pure-button-primary">Get Started</a>
-                    <a href="http://purecss.io" class="pure-button pure-button-primary">Learn More</a>
+                    <a href="#more" class="button">Learn More</a>
+                    <a href="#buy" class="button">Get Now</a>
                 </p>
             </div>
         </div>
         
         
         <div class="content">
-            
-        
-            <!-- OUR SERVICES SECTION -->
         
             <!-- section top -->
             <div class="section-top">
@@ -91,19 +84,41 @@
             </div>
             
             <!-- services section content -->
-            <div class="row section">
-                <div class="column grid_4"></div>
-                <div class="column grid_4 middle"></div>
-                <div class="column grid_4"></div>
+            <div class="row services">
+                <div class="column grid-4">
+                    <div class="services-block">
+                        <p class="icon icon-instagram"></p>
+                        <h3>Learn</h3>
+                        <p>
+                            Lorem ipsum dolor sit amet, consectetur adipisicing elit. Lorem ipsum dolor sit amet, Lorem ipsum dolor sit amet, consectetur adipisicing elit. Lorem ipsum dolor sit amet.
+                        </p>
+                    </div>
+                </div>
+        
+                <div class="column grid-4 middle">
+                    <div class="services-block">
+                        <p class="icon icon-compose"></p>
+                        <h3>Build</h3>
+                        <p>
+                            Lorem ipsum dolor sit amet, consectetur adipisicing elit. Lorem ipsum dolor sit amet, Lorem ipsum dolor sit amet, consectetur adipisicing elit. Lorem ipsum dolor sit amet.
+                        </p>
+                    </div>
+                </div>
+                
+                <div class="column grid-4 medium-split-1 medium-center">
+                    <div class="services-block">
+                        <p class="icon icon-ipad"></p>
+                        <h3>Love</h3>
+                        <p>
+                            Lorem ipsum dolor sit amet, consectetur adipisicing elit. Lorem ipsum dolor sit amet, Lorem ipsum dolor sit amet, consectetur adipisicing elit. Lorem ipsum dolor sit amet.
+                        </p>
+                    </div>
+                </div>
             </div>
             <!-- END SERVICES SECTION -->
         
-            <!-- COMPANIES -->
-            <div class="section-top">
-        
-                <h2 class="title">
-                    Our Clients
-                </h2>
+            <!-- CLIENTS -->
+            <div class="section-top clients">
         
                 <img alt="twitter" src="./assets/images/companies/twitter.png">
                 <img alt="shopify" src="./assets/images/companies/shopify.png">
@@ -111,12 +126,82 @@
                 <img alt="rackspace" src="./assets/images/companies/rackspace.png">
                 <img alt="digitaloccean" src="./assets/images/companies/digitalocean.png"> 
             </div>
+            <!-- END CLIENTS SECTION -->
+        
+            <!-- ABOUT US -->
+            <div class="row" id="about">
+                <div class="block main">
+                    <div class="column grid-7 center">
+                        <div class="block">
+                            <h1>ABOUT US</h1>
+        
+                            <p> Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam non tortor nec purus tincidunt scelerisque. Phasellus faucibus luctus vestibulum. Morbi et venenatis metus. Nullam bibendum, mauris vitae accumsan venenatis, nisl sem auctor urna, quis tincidunt eros elit et odio. Cras ac condimentum velit. Cras vestibulum volutpat semper. Fusce eu dignissim nulla. Vivamus a ligula sed orci vestibulum malesuada quis eget sem. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis nec leo sit amet metus imperdiet lobortis quis a mauris. Praesent consectetur ante erat, vitae feugiat tellus rhoncus quis. In hac habitasse platea dictumst. Donec a neque congue, varius enim rhoncus, laoreet lacus.</p>
+        
+                            <p>Morbi et venenatis metus. Nullam bibendum, mauris vitae accumsan venenatis, nisl sem auctor urna, quis tincidunt eros elit et odio. Cras ac condimentum velit. Cras vestibulum volutpat semper. Fusce eu dignissim nulla. Vivamus a ligula sed orci vestibulum malesuada quis eget sem. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis nec leo sit amet metus imperdiet lobortis quis a mauris. Praesent consectetur ante erat, vitae feugiat tellus rhoncus quis. In hac habitasse platea dictumst. Donec a neque congue, varius enim rhoncus, laoreet lacus. Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
+        
+                            <p>Praesent consectetur ante erat, vitae feugiat tellus rhoncus quis. In hac habitasse platea dictumst. Donec a neque congue, varius enim rhoncus, laoreet lacus. Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
         
             <!-- TEAM SECTION -->
-        
-            <!-- PORTFOLIO -->
-            <div class="potfolio">
+            <div class="row team">
+                <div class="column grid-3 medium-split-2">
+                    <div class="member">
+                    </div>
+                </div>
                 
+                <div class="column grid-3 medium-split-2">
+                    <div class="member">
+                    </div>
+                </div>
+                
+                <div class="column grid-3 medium-split-2">
+                    <div class="member">
+                    </div>
+                </div>
+        
+                <div class="column grid-3 medium-split-2">
+                    <div class="member">
+                    </div>
+                </div>
+            </div>
+        
+            <!-- MAIN CONTENT SECTION -->
+            <div class="row">
+                <div class="block main">
+                    <div class="column grid-7 center">
+                        <div class="block">
+                            <h1>SOMETHING ELSE TO SAY?!</h1>
+        
+                            <p>Praesent consectetur ante erat, vitae feugiat tellus rhoncus quis. In hac habitasse platea dictumst. Donec a neque congue, varius enim rhoncus, laoreet lacus. Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
+        
+                            <p>Duis nec leo sit amet metus imperdiet lobortis quis a mauris. Praesent consectetur ante erat, vitae feugiat tellus rhoncus quis. In hac habitasse platea dictumst. Donec a neque congue, varius enim rhoncus, laoreet lacus. Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
+        
+                            <p>Duis nec leo sit amet metus imperdiet lobortis quis a mauris. Praesent consectetur ante erat, vitae feugiat tellus rhoncus quis. In hac habitasse platea dictumst. Donec a neque congue, varius enim rhoncus, laoreet lacus. Lorem ipsum dolor sit amet, consectetur adipiscing elit <a href="">Some link</a>.</p>
+        
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="row">
+                <div class="footer">
+                    <div class="column grid-8 center">
+                       <h1>Contact Us</h1>
+                        
+                        <a class="contact" href="mailto:hello@sweefty.com">hello@sweefty.com</a>
+                        <a class="contact" href="0096255566699">+962-555-666-99</a>
+                        <div class="footer-bottom">
+                            <div class="row">
+                                <div class="column grid-6">
+                                    <div class="footer-left">sweefty.com &copy; 2014</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
     </body>

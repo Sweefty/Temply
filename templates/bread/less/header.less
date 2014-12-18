@@ -1,0 +1,128 @@
+.header {
+    background: @header-color;
+    z-index: 1;
+    overflow: hidden;
+    width: 100%;
+    top: 0;
+    left: 0;
+    position: fixed;
+    z-index: 3;
+}
+
+/* LOGO container */
+.logo-container {
+    padding: 20px;
+    @media @small {
+        padding: 10px;
+    }
+}
+
+.logo-container img.logo {
+    background: @logo-background-color;
+    padding: 10px;
+    border-radius: 3px;
+
+}
+
+/*TOP MENU*/
+.menu-container {
+    padding: 13px;
+    @media @small {
+        display: none;
+    }
+}
+
+ul.menu {
+    list-style: none;
+    float: right;
+    padding: 0;
+}
+
+ul.menu li {
+    float: left;
+}
+
+ul.menu li a {
+    font-weight: bold;
+    font-size: 14px;
+    padding: 10px 15px;
+    color: @top-text-color;
+    display: block;
+}
+
+ul.menu li a:hover {
+    border-bottom: 2px solid @top-text-color;
+}
+
+/*INTRO SCREEN*/
+.intro {
+    background: @header-color;
+    z-index: 1;
+    overflow: hidden;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
+    position: fixed !important;
+
+    .splash {
+        width: 70%;
+        height: 60%;
+        margin: auto;
+        position: absolute;
+        top: 0; 
+        left: 0; 
+        bottom: 0; 
+        right: 0;
+        text-align: center;
+        
+        .button {
+            background-color: none;
+            color: white;
+            padding: 0.5em 2em;
+            border-radius: 5px;
+            margin: 5px;
+        }
+
+        a.button {
+            background: none;
+            color: @top-text-color;
+            border-radius: 5px;
+            font-size: 120%;
+            border: 2px solid @top-text-color;
+        }
+
+        a.button:hover {
+            background: @top-text-color;
+            color: darken(@header-color, 20%);
+            .transition(300ms, linear);
+        }
+
+        .splash-head {
+            font-size: 100px;
+            font-weight: bold;
+            color: @top-text-color;
+            font-weight: 100;
+            line-height: 1em;
+
+            @media @medium {
+                top: 5px;
+                font-size: 64px;
+                margin-bottom: 35px;
+            }
+
+            @media @small {
+                top: 5px;
+                font-size: 34px;
+                margin-bottom: 35px;
+            }
+        }
+
+        .splash-subhead {
+            color: @top-text-color;
+            letter-spacing: 0.05em;
+            padding: 25px;
+            margin-top: -50px;
+        }
+    }
+}

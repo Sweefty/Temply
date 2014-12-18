@@ -2,10 +2,20 @@
     <div class="row">
         
         <!-- LOGO -->
-        <div class="column grid_5 logo-container"><img alt="sweefty" src="./assets/images/logo.png"></div>
+        <div class="column grid-5 logo-container">
+            {{#if logo}}
+            {{#if logo.url}}
+            <a href="{{logo.url}}">
+            {{/if}}
+            <img class="logo" alt="{{logo.alt}}" src="{{logo.src}}">
+            {{#if logo.url}}
+            </a>
+            {{/if}}
+            {{/if}}
+        </div>
         
         <!-- TOP MENU -->
-        <div class="column grid_7 menu-container">
+        <div class="column grid-7 menu-container">
             <ul class="menu">
                 <li><a href="#home">Home</a></li>
                 <li><a href="#work">Work</a></li>
@@ -16,28 +26,27 @@
     </div>
 </div>
 
-
 <div class="intro">
     <div class="splash">
         
-        <h1 class="splash-head">Hello, We're Sweefty</h1>
+        <h1 class="splash-head">{{splash.head}}</h1>
         
         <p class="splash-subhead">
-            Lorem ipsum dolor sit amet, consectetur adipisicing elit. Lorem ipsum dolor sit amet.
+            {{splash.subhead}}
         </p>
 
+        {{#if splash.buttons}}
         <p>
-            <a href="http://purecss.io" class="pure-button pure-button-primary">Get Started</a>
-            <a href="http://purecss.io" class="pure-button pure-button-primary">Learn More</a>
+            {{#each splash.buttons}}
+            <a href="{{link}}" class="button">{{text}}</a>
+            {{/each}}
         </p>
+        {{/if}}
     </div>
 </div>
 
 
 <div class="content">
-    
-
-    <!-- OUR SERVICES SECTION -->
 
     <!-- section top -->
     <div class="section-top">
@@ -48,16 +57,41 @@
     </div>
     
     <!-- services section content -->
-    <div class="row section">
-        <div class="column grid_4"></div>
-        <div class="column grid_4 middle"></div>
-        <div class="column grid_4"></div>
+    <div class="row services">
+        <div class="column grid-4">
+            <div class="services-block">
+                <p class="icon icon-instagram"></p>
+                <h3>Learn</h3>
+                <p>
+                    Lorem ipsum dolor sit amet, consectetur adipisicing elit. Lorem ipsum dolor sit amet, Lorem ipsum dolor sit amet, consectetur adipisicing elit. Lorem ipsum dolor sit amet.
+                </p>
+            </div>
+        </div>
+
+        <div class="column grid-4 middle">
+            <div class="services-block">
+                <p class="icon icon-compose"></p>
+                <h3>Build</h3>
+                <p>
+                    Lorem ipsum dolor sit amet, consectetur adipisicing elit. Lorem ipsum dolor sit amet, Lorem ipsum dolor sit amet, consectetur adipisicing elit. Lorem ipsum dolor sit amet.
+                </p>
+            </div>
+        </div>
+        
+        <div class="column grid-4 medium-split-1 medium-center">
+            <div class="services-block">
+                <p class="icon icon-ipad"></p>
+                <h3>Love</h3>
+                <p>
+                    Lorem ipsum dolor sit amet, consectetur adipisicing elit. Lorem ipsum dolor sit amet, Lorem ipsum dolor sit amet, consectetur adipisicing elit. Lorem ipsum dolor sit amet.
+                </p>
+            </div>
+        </div>
     </div>
     <!-- END SERVICES SECTION -->
 
-    <!-- COMPANIES -->
-    <div class="section-top">
-
+    <!-- CLIENTS -->
+    <div class="section-top clients">
         {{#if ourClients}}
         <h2 class="title">
             {{ourClients}}
@@ -70,11 +104,81 @@
         <img alt="rackspace" src="./assets/images/companies/rackspace.png">
         <img alt="digitaloccean" src="./assets/images/companies/digitalocean.png"> 
     </div>
+    <!-- END CLIENTS SECTION -->
+
+    <!-- ABOUT US -->
+    <div class="row" id="about">
+        <div class="block main">
+            <div class="column grid-7 center">
+                <div class="block">
+                    <h1>ABOUT US</h1>
+
+                    <p> Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam non tortor nec purus tincidunt scelerisque. Phasellus faucibus luctus vestibulum. Morbi et venenatis metus. Nullam bibendum, mauris vitae accumsan venenatis, nisl sem auctor urna, quis tincidunt eros elit et odio. Cras ac condimentum velit. Cras vestibulum volutpat semper. Fusce eu dignissim nulla. Vivamus a ligula sed orci vestibulum malesuada quis eget sem. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis nec leo sit amet metus imperdiet lobortis quis a mauris. Praesent consectetur ante erat, vitae feugiat tellus rhoncus quis. In hac habitasse platea dictumst. Donec a neque congue, varius enim rhoncus, laoreet lacus.</p>
+
+                    <p>Morbi et venenatis metus. Nullam bibendum, mauris vitae accumsan venenatis, nisl sem auctor urna, quis tincidunt eros elit et odio. Cras ac condimentum velit. Cras vestibulum volutpat semper. Fusce eu dignissim nulla. Vivamus a ligula sed orci vestibulum malesuada quis eget sem. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis nec leo sit amet metus imperdiet lobortis quis a mauris. Praesent consectetur ante erat, vitae feugiat tellus rhoncus quis. In hac habitasse platea dictumst. Donec a neque congue, varius enim rhoncus, laoreet lacus. Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
+
+                    <p>Praesent consectetur ante erat, vitae feugiat tellus rhoncus quis. In hac habitasse platea dictumst. Donec a neque congue, varius enim rhoncus, laoreet lacus. Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
+                </div>
+            </div>
+        </div>
+    </div>
 
     <!-- TEAM SECTION -->
-
-    <!-- PORTFOLIO -->
-    <div class="potfolio">
+    <div class="row team">
+        <div class="column grid-3 medium-split-2">
+            <div class="member">
+            </div>
+        </div>
         
+        <div class="column grid-3 medium-split-2">
+            <div class="member">
+            </div>
+        </div>
+        
+        <div class="column grid-3 medium-split-2">
+            <div class="member">
+            </div>
+        </div>
+
+        <div class="column grid-3 medium-split-2">
+            <div class="member">
+            </div>
+        </div>
+    </div>
+
+    <!-- MAIN CONTENT SECTION -->
+    <div class="row">
+        <div class="block main">
+            <div class="column grid-7 center">
+                <div class="block">
+                    <h1>SOMETHING ELSE TO SAY?!</h1>
+
+                    <p>Praesent consectetur ante erat, vitae feugiat tellus rhoncus quis. In hac habitasse platea dictumst. Donec a neque congue, varius enim rhoncus, laoreet lacus. Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
+
+                    <p>Duis nec leo sit amet metus imperdiet lobortis quis a mauris. Praesent consectetur ante erat, vitae feugiat tellus rhoncus quis. In hac habitasse platea dictumst. Donec a neque congue, varius enim rhoncus, laoreet lacus. Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
+
+                    <p>Duis nec leo sit amet metus imperdiet lobortis quis a mauris. Praesent consectetur ante erat, vitae feugiat tellus rhoncus quis. In hac habitasse platea dictumst. Donec a neque congue, varius enim rhoncus, laoreet lacus. Lorem ipsum dolor sit amet, consectetur adipiscing elit <a href="">Some link</a>.</p>
+
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <div class="row">
+        <div class="footer">
+            <div class="column grid-8 center">
+               <h1>Contact Us</h1>
+                
+                <a class="contact" href="mailto:hello@sweefty.com">hello@sweefty.com</a>
+                <a class="contact" href="0096255566699">+962-555-666-99</a>
+                <div class="footer-bottom">
+                    <div class="row">
+                        <div class="column grid-6">
+                            <div class="footer-left">sweefty.com &copy; 2014</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
 </div>
