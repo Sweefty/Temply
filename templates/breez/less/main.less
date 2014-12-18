@@ -1,0 +1,178 @@
+@import "themes";
+@import "defaults";
+@import "header";
+
+@import "../../../less/media";
+@import "../../../less/elements";
+
+/*BODY CONTENT*/
+.body {
+    background: #fff;
+    width: 100%;
+    position: absolute;
+    top: 100%;
+    min-height: 100%;
+    z-index: 5;
+    margin: 0;
+    font-size: 16px;
+}
+
+.content {
+    width: 75%;
+    margin: 0 auto;
+
+    @media @medium {
+        width: 90%;
+    }
+
+    @media @small {
+        width: 95%;
+    }
+}
+
+.section {
+    width: 100%;
+    margin: 0 auto;
+    background: #fff;
+    margin-bottom: 250px;
+    @media @medium {
+        margin-bottom: 150px;
+    }
+
+    @media @small {
+        margin-bottom: 75px;
+    }
+}
+
+.section div.block {
+    padding: 20px;
+    margin: 5px;
+    overflow: hidden;
+    background: @section-color;
+}
+
+.section p.expose {
+    padding: 10px;
+    overflow: hidden;
+    background: #eee;
+}
+
+.title h1 {
+    text-align: center;
+    border-bottom: 1px solid #ccc;
+    padding: 50px;
+}
+
+/* pricing table section */
+.pricing {
+    padding: 20px;
+    overflow: hidden;
+    .transition(300ms);
+
+    .table {
+        margin: 0 auto;
+        width: 70%;
+        
+        &:hover {
+            /*opacity : .5;*/
+            .pricing-column div.column-wrap:hover {
+                .transition(300ms);
+                opacity: .5;
+            }
+        }
+        .pricing-column div.column-wrap {
+            margin: 2px;
+            padding-top: 10px;
+
+            .column-content {
+                width: 100%;
+                padding: 40px 0;
+                text-align: center;
+                background: #eee;
+            }
+
+            .column-link {
+                display: block;
+                width: 100%;
+                padding: 8px;
+                text-align: center;
+                font-weight: bold;
+                font-size: 14px;
+                color: #fff;
+                background: @header-color;
+                color: @header-text-color;
+            }
+
+            &.middle {
+                padding-top: 0;
+                @media @medium, @small {
+                    padding-top: 10px;
+                }
+                .column-content {
+                    padding: 50px 0;
+                    @media @medium, @small {
+                        padding: 40px 0;
+                    }
+                }
+            }
+        }
+    }
+}
+
+/* companies section */
+.block.companies {
+    text-align: center;
+}
+.block.companies img {
+    padding: 30px;
+    margin: 10px;
+    border-radius: 10px;
+    
+    &:hover {
+        background: #fff;
+        .transition(300ms);
+    }
+
+    @media @medium {
+        padding: 20px;
+        margin: 10px;
+    }
+
+    @media @small {
+        padding: 10px;
+        margin: 5px;
+        background: none;
+    }
+}
+
+
+
+/*Footer*/
+div.footer {
+    width: 95%;
+    margin: 0 auto;
+    border-top: 1px solid #ccc;
+    padding: 30px;
+    
+    @media @small {
+        text-align: center;
+    }
+    
+    .button {
+        @media @small {
+            display: inline-block;
+        }
+    }
+
+    .footer-right {
+        text-align: right;
+        color: #888;
+        padding-top: 8px;
+        font-size: 14px;
+
+        @media @small {
+            padding-top: 20px;
+            text-align: center;
+        }
+    }
+}

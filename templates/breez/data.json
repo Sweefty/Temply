@@ -1,0 +1,28 @@
+{
+    "logo" : {
+        "src" : "./assets/images/logo.png",
+        "alt" : "Sweefty",
+        "url" : "#top" //optional
+    },
+
+    "menu" : {
+        "sticky" : true
+    },
+    
+    //spash options
+    "splash" : {
+        //uncomment the following if you want the splash screen to have a bold intro text
+        // "head"    : "Hello, We're Sweefty",
+        "subhead" : "Lorem ipsum dolor sit amet, consectetur adipisicing elit. Lorem ipsum dolor sit amet.",
+        "buttons" : [
+            {
+                "text" : "Learn More",
+                "link" : "#more"
+            },
+            {
+                "text" : "Buy Now",
+                "link" : "#buy"
+            },
+        ]
+    }
+}

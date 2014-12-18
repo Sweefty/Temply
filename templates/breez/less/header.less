@@ -1,0 +1,133 @@
+.header {
+    background: @header-color;
+    overflow: hidden;
+    width: 100%;
+    z-index: 10;
+}
+
+.header-container {
+    overflow: hidden;
+    width: 100%;
+    height: 100px;
+    z-index: 3;
+    position: relative;
+    top: -100px;
+    @media @small {
+        top: -60px;
+        height: auto;
+    }
+}
+
+/*====================================
+LOGO
+=====================================*/
+.logo-container {
+    padding: 35px;
+    @media @small {
+        padding: 10px;
+    }
+}
+
+/*====================================
+MENU
+=====================================*/
+.menu-container {
+    padding: 13px;
+    @media @small {
+        display: none;
+    }
+}
+
+ul.menu {
+    list-style: none;
+    float: right;
+    padding: 0;
+}
+
+ul.menu li {
+    float: left;
+}
+
+ul.menu li a {
+    font-weight: bold;
+    font-size: 14px;
+    padding: 10px 15px;
+    color: @header-text-color;
+    display: block;
+}
+
+ul.menu li a:hover {
+    border-bottom: 2px solid @header-text-color;
+}
+
+/*====================================
+INTRO
+=====================================*/
+.intro {
+    background: @intro-color;
+    z-index: 1;
+    overflow: hidden;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
+    position: fixed !important;
+}
+
+.intro .splash {
+    width: 70%;
+    height: 70%;
+    margin: auto;
+    position: absolute;
+    top: 0; 
+    left: 0; 
+    bottom: 0; 
+    right: 0;
+    text-align: center;
+}
+
+.intro .splash-head {
+    font-size: 100px;
+    font-weight: bold;
+    color: @intro-text-color;
+    font-weight: 100;
+    line-height: 1em;
+}
+
+.intro .splash-subhead {
+    color: @intro-text-color;
+    letter-spacing: 0.05em;
+    line-height: 1.5em;
+    font-size: 34px;
+
+    @media @medium {
+        padding: 5px;
+        font-size: 24px;
+    }
+
+    @media @small {
+        margin-top: -30px;
+        padding: 2px;
+        font-size: 20px;
+    }
+}
+
+.intro .head {
+    color: @intro-text-color;
+    border-bottom: 1px solid @intro-text-color;
+    img {
+        display: none;
+        height: 500px;
+        position: relative;
+        top: -302px;
+    }
+
+    h1 {
+        font-size: 84px;
+        font-weight: 900;
+    }
+
+    @media @medium, @small {
+        display: none;
+    }
+}
