@@ -1,20 +1,27 @@
 {
-  "name": "bread",
-  "version": "0.0.1",
-  "description": "One page HTML5 template",
+  "name": "temply",
+  "version": "0.0.4",
+  "description": "Temply the stratic html creator",
   "main": "gruntfile.js",
-  "devDependencies": {
+  "dependencies": {
     "grunt": "~0.4.5",
     "grunt-contrib-less": "~0.11.0",
     "grunt-contrib-watch": "~0.6.1",
-    "grunt-compile-handlebars": "~1.0.0"
+    "handlebars": ""
+  },
+  "repository" : { 
+    "type" : "git",
+    "url" : "http://github.com/Sweefty/temply.git"
   },
   "keywords": [
     "html",
+    "html5",
     "templates",
+    "builder",
     "landing",
     "page"
   ],
+  "bin": { "temply": "temply.js" },
   "author": "Mamod Mehyar",
   "license": "MIT"
 }

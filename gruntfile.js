@@ -1,51 +1,118 @@
 var fs     = require('fs');
 var path   = require('path');
 var assert = require('assert');
-
+var handlebars = require('handlebars');
 var args   = process.argv;
-assert.ok(args[3], "please specify a third argument");
+
 //grab second arg options
 var template = args[3];
 
-//parse template
-var patt = /^--/;
-var res = template.split(patt);
-assert.ok(res[1], "second arg option must start with --");
-var temp_dir = path.resolve(__dirname + '/templates/' + res[1] + '/');
-console.log(temp_dir);
+var global_handlebars_data = {
+    default_javascript : [
+        'https://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.1/jquery.min.js',
+        './assets/js/app.js'
+    ],
 
-//template specific file loader
-function get_file (file){
-    return path.resolve(temp_dir + '/' + file);
+    default_css : [
+        'https://cdnjs.cloudflare.com/ajax/libs/normalize/3.0.1/normalize.min.css',
+        './assets/css/bare.css',
+        './assets/css/main.css'
+    ],
+
+    default_fonts : [
+        'https://fonts.googleapis.com/css?family=Dosis',
+    ]
 }
 
-var files     = {};
-var outcss    = get_file("dist/assets/css/main.css");
-files[outcss] = get_file("less/main.less");
-
-
 module.exports = function(grunt) {
+
+    var temply = grunt.option("temply");
+    var temp_dir = temply ? temply.path : null;
+    if (!temp_dir) {
+        var res = template.split(/^--/);
+        temp_dir = path.resolve(__dirname + '/templates/' + res[1] + '/');
+    } else {
+        temp_dir = path.resolve(temp_dir);
+    }
+
+    if (!fs.existsSync(temp_dir)){
+        throw new Error(res[1] + ' does not seem to be a valid template name');
+    }
+
+    //template specific file loader
+    function get_file (file){
+        return path.resolve(temp_dir + '/' + file);
+    }
+
+    var files     = {};
+    var outcss    = get_file("dist/assets/css/main.css");
+    files[outcss] = get_file("less/main.less");
+
+    var init = require(get_file('init.js'));
+
+    //each template can define a seperate layout
+    //it must be named layout.hbs and under template root directory
+    //if not then global layout will be used
+    var layout = get_file("layout.hbs");
+    try {
+        layout = fs.lstatSync(layout).isFile() ? layout : 'layout.hbs';
+    } catch (e){
+        layout = 'layout.hbs';
+    }
+
+    grunt.registerTask('Compile', 'Compile Handlebars', function() {
+        //go through each page.hbs, and compile
+        var hbs = fs.readdirSync(get_file("pages"));
+        var layoutContent = fs.readFileSync(layout);
+        var template = handlebars.compile(layoutContent.toString("utf8"));
+
+        var page_data;
+        var data = (function(){
+            for (keys in global_handlebars_data){
+                if (!init.data[keys]){
+                    init.data[keys] = global_handlebars_data[keys];
+                }
+            }
+            return init.data;
+        })();
+        
+        handlebars.registerHelper("config", function(context, options){
+            var text = context.fn();
+            page_data = eval ("(" + text + ")");
+            for (key in data){
+                if (!page_data[key]){
+                    page_data[key] = page_data[key];
+                }
+            }
+            return "";
+        });
+        
+        for (var i = 0; i < hbs.length; i++){
+            var hb = hbs[i];
+            var page = fs.readFileSync(get_file("pages/" + hb)).toString("utf8");
+            var p = handlebars.compile(page);
+            var page_out = p(data);
+
+            handlebars.registerPartial("content", page_out);
+
+            //split
+            var filename = hb.split('.')[0] + '.html';
+            var out = template(page_data || data);
+            fs.writeFileSync(get_file("dist/" + filename), out);
+            page_data = null;
+        }
+    });
+
     grunt.initConfig({
         less: {
             development: {
-                // options: {
-                //     compress: true,
-                //     yuicompress: true,
-                //     optimization: 4
-                // },
+                options: {
+                    paths : ["./less", __dirname + "/less"],
+                    // compress: true,
+                    // yuicompress: true,
+                    // optimization: 4
+                },
                 files: files
-            }
-        },
-
-        'compile-handlebars': {
-            compile : {
-                // preHTML: 'test/fixtures/pre-dev.html',
-                // postHTML: 'test/fixtures/post-dev.html',
-                template: 'layout.hbs',
-                partials: [ get_file('handlebars/index.hbs') ],
-                templateData: get_file('data.json'),
-                output:  get_file('dist/index.html'),
-                globals: [{}]
             }
         },
 
@@ -59,23 +126,21 @@ module.exports = function(grunt) {
             },
 
             templates: {
-                files: [ get_file('handlebars/**/*.hbs'), get_file('data.json') ],
-                tasks: ['compile-handlebars'],
+                files: [ get_file('**/*.hbs'), get_file('init.js') ],
+                tasks: ['Compile'],
                 options: {
                     nospawn: true
                 }
             }
-
         }
     });
 
     //load
     grunt.loadNpmTasks('grunt-contrib-less');
     grunt.loadNpmTasks('grunt-contrib-watch');
-    grunt.loadNpmTasks('grunt-compile-handlebars');
 
     //register
     grunt.registerTask('default', ['watch']);
     grunt.registerTask('watcher', ['watch']);
-    grunt.registerTask('assemble', ['compile-handlebars']);
+    grunt.registerTask('compile', ['Compile','less']);
 };

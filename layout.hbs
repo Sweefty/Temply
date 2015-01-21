@@ -5,42 +5,39 @@
     <!--[if (gte IE 9)|!(IE)]><html lang="en"><![endif]-->
     <head>
         <meta charset="utf-8" />
-        <title>Creative Protfolio</title>
-        <meta name="description" content="">
+        <title>{{title}}</title>
+
+        {{#if description}}
+        <meta name="description" content="{{description}}">
+        {{/if}}
         <meta name="author" content="">
         <!--[if lt IE 9]>
             <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
         <![endif]-->
         
         <!-- Mobile Specific Metas -->
-        <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" /> 
-        
-        <!-- CSS Files -->
-        <!-- Normalize -->
-        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/3.0.1/normalize.min.css">
-        <!-- Spot css -->
-        <link rel="stylesheet" href="./assets/css/spot.css">
-        <!-- main css -->
-        <link rel="stylesheet" href="./assets/css/main.css">
+        <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
 
-        <!-- pure css buttons -->
-        <link rel="stylesheet" href="http://yui.yahooapis.com/pure/0.5.0/buttons-min.css">
+        <!-- CSS Files -->
+        {{#each default_css}}
+        <link rel="stylesheet" href="{{this}}">
+        {{/each}}
 
         <!-- JAVASCRIPT  Files -->
-        <!-- jQuery -->
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.1/jquery.min.js" 
-        type="text/javascript"></script>
-        
-        <!-- app js -->
-        <script src="./assets/js/app.js" type="text/javascript"></script>
-
+        {{#each default_javascript}}
+        <script src="{{this}}" type="text/javascript"></script>
+        {{/each}}
+        {{#each javascript}}
+        <script src="{{this}}" type="text/javascript"></script>
+        {{/each}}
 
         <!-- FONTS -->
-        <link href='https://fonts.googleapis.com/css?family=Dosis' rel='stylesheet' type='text/css'>
-        <link href='https://fonts.googleapis.com/css?family=Cutive' rel='stylesheet' type='text/css'>
+        {{#each fonts}}
+        <link href='{{this}}' rel='stylesheet' type='text/css'>
+        {{/each}}
     </head>
     
     <body>
-        {{> index}}
+        {{> content}}
     </body>
 </html>
