@@ -63,16 +63,16 @@ This file contains general Template options
 
 handlebars templates are in ``handlebars`` folder, by default index.hbs is there, but you can create as many pages as you want, **ex :** ``about.hbs`` will compile to ``about.html``
 
-Each page can has it own set of options, *will override global options found in init.js ``exports.data`` *,  to set per page options at the top of the handlebars page add a wellformed json inside ``{{config}}``  ``{{\config}}`` handlebars tags.
+Each page can has it own set of options, *will override global options found in init.js ``exports.data`` *,  to set per page options at the top of the handlebars page add a wellformed json inside ``{{#config}}``  ``{{/config}}`` handlebars tags.
 
 ```js
-{{config}}
+{{#config}}
     {
         "title" : "About Page",
         "description" : "This is a description",
         ...
     }
-{{\config}}
+{{/config}}
 ```
 
 ## Dealing with Less CSS

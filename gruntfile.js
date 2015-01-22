@@ -2,21 +2,24 @@ var fs     = require('fs');
 var path   = require('path');
 var assert = require('assert');
 var handlebars = require('handlebars');
+var copy = require('./copy.js');
 var args   = process.argv;
+var marked = require('marked');
 
 //grab second arg options
 var template = args[3];
 
 var global_handlebars_data = {
+    bower : "{{assets}}/components",
     default_javascript : [
         'https://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.1/jquery.min.js',
-        './assets/js/app.js'
+        '{{assets}}/js/app.js'
     ],
 
     default_css : [
         'https://cdnjs.cloudflare.com/ajax/libs/normalize/3.0.1/normalize.min.css',
-        './assets/css/bare.css',
-        './assets/css/main.css'
+        '{{assets}}/css/bare.css',
+        '{{assets}}/css/main.css'
     ],
 
     default_fonts : [
@@ -60,47 +63,102 @@ module.exports = function(grunt) {
         layout = 'layout.hbs';
     }
 
+    grunt.registerTask('Copy', 'Compy Files To Location', function() {
+        this.requires(['less', 'Compile']);
+        if (init.outLocation){
+            var done = this.async();
+            var cb = function(){ done("Copying Files"); };
+
+            copy.FolderRecursiveSync(get_file("dist"), path.resolve(temp_dir, init.outLocation), cb);
+            setTimeout(function(){ cb(); }, 1000);
+        }
+    });
+
     grunt.registerTask('Compile', 'Compile Handlebars', function() {
         //go through each page.hbs, and compile
-        var hbs = fs.readdirSync(get_file("pages"));
-        var layoutContent = fs.readFileSync(layout);
-        var template = handlebars.compile(layoutContent.toString("utf8"));
+        var baseLocation = get_file("pages");
+        var baseDestination = get_file("dist");
 
-        var page_data;
-        var data = (function(){
-            for (keys in global_handlebars_data){
-                if (!init.data[keys]){
-                    init.data[keys] = global_handlebars_data[keys];
+        var LoopFiles = function(location){
+            var rel = path.relative(location, baseLocation);
+            var assets = rel.replace('\\', '/');
+            if (!assets){
+                assets = './assets';
+            } else { assets += '/assets'; }
+
+            global_handlebars_data.assets = assets;
+            
+            var currentDest = location.split(baseLocation)[1] || '/';
+            currentDest += '/';
+
+            var hbs = fs.readdirSync(location);
+            var layoutContent = fs.readFileSync(layout);
+            var template = handlebars.compile(layoutContent.toString("utf8"));
+
+            var page_data;
+            var data = (function(){
+                for (keys in global_handlebars_data){
+                    if (!init.data[keys]){
+                        init.data[keys] = global_handlebars_data[keys];
+                    }
                 }
-            }
-            return init.data;
-        })();
-        
-        handlebars.registerHelper("config", function(context, options){
-            var text = context.fn();
-            page_data = eval ("(" + text + ")");
-            for (key in data){
-                if (!page_data[key]){
-                    page_data[key] = page_data[key];
+                return init.data;
+            })();
+            
+            for (var i = 0; i < hbs.length; i++){
+                var hb = hbs[i];
+                var page = get_file("pages" + currentDest + hb);
+                
+                if (fs.lstatSync( page ).isDirectory()){
+                    if ( !fs.existsSync( get_file("dist" + currentDest + hb) ) ) {
+                        fs.mkdirSync( get_file("dist" + currentDest + hb) );
+                    }
+
+                    LoopFiles(page);
+                    continue;
                 }
+
+                handlebars.registerHelper("config", function(context, options){
+                    var text = context.fn();
+                    page_data = eval ("(" + text + ")");
+                    for (key in data){
+                        if (!page_data[key]){
+                            page_data[key] = data[key];
+                        }
+                    }
+                    return "";
+                });
+
+                var _marked = [];
+                handlebars.registerHelper("md", function(context){
+                    var md = context.fn();
+                    _marked = marked(md);
+                    return _marked;
+                });
+
+                var pagecontent = fs.readFileSync(page).toString("utf8");
+                var p = handlebars.compile(pagecontent);
+                data.assets = assets;
+                var page_out = p(data);
+
+                handlebars.registerPartial("content", page_out);
+
+                //split
+                var filename = hb.split('.')[0] + '.html';
+                var out = template(page_data || data);
+
+                //FIXME: we compile 2 times just to parse
+                //{{assets}} within global options
+                //there must be a better way to do this
+                template = handlebars.compile(out);
+                out = template({ assets : assets, _marked : _marked });
+
+                fs.writeFileSync(get_file("dist" + currentDest + filename), out);
+                page_data = null;
             }
-            return "";
-        });
-        
-        for (var i = 0; i < hbs.length; i++){
-            var hb = hbs[i];
-            var page = fs.readFileSync(get_file("pages/" + hb)).toString("utf8");
-            var p = handlebars.compile(page);
-            var page_out = p(data);
+        };
 
-            handlebars.registerPartial("content", page_out);
-
-            //split
-            var filename = hb.split('.')[0] + '.html';
-            var out = template(page_data || data);
-            fs.writeFileSync(get_file("dist/" + filename), out);
-            page_data = null;
-        }
+        LoopFiles(baseLocation);
     });
 
     grunt.initConfig({
@@ -119,7 +177,7 @@ module.exports = function(grunt) {
         watch: {
             styles: {
                 files: [get_file('less/**/*.less')],
-                tasks: ['less'],
+                tasks: ['less','Compile', 'Copy'],
                 options: {
                     nospawn: true
                 }
@@ -127,7 +185,7 @@ module.exports = function(grunt) {
 
             templates: {
                 files: [ get_file('**/*.hbs'), get_file('init.js') ],
-                tasks: ['Compile'],
+                tasks: ['less','Compile', 'Copy'],
                 options: {
                     nospawn: true
                 }
@@ -142,5 +200,5 @@ module.exports = function(grunt) {
     //register
     grunt.registerTask('default', ['watch']);
     grunt.registerTask('watcher', ['watch']);
-    grunt.registerTask('compile', ['Compile','less']);
+    grunt.registerTask('compile', ['less','Compile', 'Copy']);
 };
