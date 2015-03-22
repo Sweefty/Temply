@@ -55,9 +55,8 @@ Default layout which will be shared with all pages, you can modify as needed but
 This file contains general Template options
 
 - ``exports.outLocation`` : define compiled files destination
-- ``exports.helpers`` : define handlebars helpers
-- ``exports.partials`` : define handlebars partials
-- ``exports.data`` : general data to use with handlebars template engine
+- ``exports.handlebars``  : a function accepts handlebars object
+- ``exports.data``        : general data to use with handlebars template engine
 
 ## Dealing with handlebars
 
@@ -74,6 +73,19 @@ Each page can has it own set of options, *will override global options found in 
     }
 {{/config}}
 ```
+
+To define handlebars helpers and partials you need to export handlebars function from local ``init.js`` file
+
+``For Example``
+
+````js
+exports.handlebars = function(Handlebars){
+    Handlebars.registerPartial({
+  		header: header.toString(),
+  		footer: footer.toString()
+	});
+};
+````
 
 ## Dealing with Less CSS
 

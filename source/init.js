@@ -1,16 +1,13 @@
 //where to compile html pages, (dist) by default 
 exports.outLocation = '';
 
-//handlebars partials
-exports.partials = {};
-
-//handlebars helpers
-exports.helpers = {
-    test : function(arg1){}
+//handlebars object
+exports.handlebars = function(Handlebars) {
+    
 };
 
 exports.data = {
-	//define some javascript files to use with this project
+    //define some javascript files to use with this project
     "javascript" : [],
     
     //define fonts

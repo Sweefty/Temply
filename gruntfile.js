@@ -78,8 +78,11 @@ module.exports = function(grunt) {
         //go through each page.hbs, and compile
         var baseLocation = get_file("pages");
         var baseDestination = get_file("dist");
+        if (init.handlebars && typeof init.handlebars === 'function'){
+            init.handlebars(handlebars);
+        }
 
-        var LoopFiles = function(location){
+        (function LoopFiles (location){
             var rel = path.relative(location, baseLocation);
             var assets = rel.replace('\\', '/');
             if (!assets){
@@ -93,7 +96,7 @@ module.exports = function(grunt) {
 
             var hbs = fs.readdirSync(location);
             var layoutContent = fs.readFileSync(layout);
-            var template = handlebars.compile(layoutContent.toString("utf8"));
+            
 
             var page_data;
             var data = (function(){
@@ -118,6 +121,8 @@ module.exports = function(grunt) {
                     continue;
                 }
 
+                var template = handlebars.compile(layoutContent.toString("utf8"));
+                
                 handlebars.registerHelper("config", function(context, options){
                     var text = context.fn();
                     page_data = eval ("(" + text + ")");
@@ -144,9 +149,12 @@ module.exports = function(grunt) {
                 handlebars.registerPartial("content", page_out);
 
                 //split
-                var filename = hb.split('.')[0] + '.html';
-                var out = template(page_data || data);
+                var f = hb.split('.');
+                if (f[1] !== 'hbs'){ continue; }
 
+                var filename = f[0] + '.html';
+                var out = template(page_data || data);
+                
                 //FIXME: we compile 2 times just to parse
                 //{{assets}} within global options
                 //there must be a better way to do this
@@ -156,9 +164,7 @@ module.exports = function(grunt) {
                 fs.writeFileSync(get_file("dist" + currentDest + filename), out);
                 page_data = null;
             }
-        };
-
-        LoopFiles(baseLocation);
+        })(baseLocation);
     });
 
     grunt.initConfig({
