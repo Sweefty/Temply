@@ -4,7 +4,6 @@ var assert = require('assert');
 var handlebars = require('handlebars');
 var copy = require('./copy.js');
 var args   = process.argv;
-var marked = require('marked');
 
 //grab second arg options
 var template = args[3];
@@ -74,6 +73,10 @@ module.exports = function(grunt) {
         }
     });
 
+    grunt.registerTask('Clean', 'Cleaning Task', function(){
+        // init.clean();
+    });
+
     grunt.registerTask('Compile', 'Compile Handlebars', function() {
         //go through each page.hbs, and compile
         var baseLocation = get_file("pages");
@@ -83,6 +86,7 @@ module.exports = function(grunt) {
         }
 
         (function LoopFiles (location){
+            
             var rel = path.relative(location, baseLocation);
             var assets = rel.replace('\\', '/');
             if (!assets){
@@ -91,8 +95,10 @@ module.exports = function(grunt) {
 
             global_handlebars_data.assets = assets;
             
+
             var currentDest = location.split(baseLocation)[1] || '/';
             currentDest += '/';
+            
 
             var hbs = fs.readdirSync(location);
             var layoutContent = fs.readFileSync(layout);
@@ -107,7 +113,20 @@ module.exports = function(grunt) {
                 }
                 return init.data;
             })();
-            
+
+            /* pages starting with ipage- are special pages created automatically 
+            so remove and unlink if they are found in directory as they will be 
+            created again */
+            for (var i = 0; i < hbs.length; i++){
+                var hb = hbs[i];
+                var re = /^ipage-/;
+                if (re.test(hb)){
+                    hbs.splice(i, 1);
+                    --i;
+                    fs.unlinkSync(get_file("pages" + currentDest + hb));
+                }
+            }
+
             for (var i = 0; i < hbs.length; i++){
                 var hb = hbs[i];
                 var page = get_file("pages" + currentDest + hb);
@@ -120,8 +139,6 @@ module.exports = function(grunt) {
                     LoopFiles(page);
                     continue;
                 }
-
-                var template = handlebars.compile(layoutContent.toString("utf8"));
                 
                 handlebars.registerHelper("config", function(context, options){
                     var text = context.fn();
@@ -133,35 +150,45 @@ module.exports = function(grunt) {
                     }
                     return "";
                 });
-
-                var _marked = [];
-                handlebars.registerHelper("md", function(context){
-                    var md = context.fn();
-                    _marked = marked(md);
-                    return _marked;
-                });
+                
+                //export back some information about current
+                //page, so you can use it with handlebars helpers
+                init.current = {
+                    location : location,
+                    page : page,
+                    layout : layout,
+                    hbs : hbs,
+                    data : page_data
+                };
 
                 var pagecontent = fs.readFileSync(page).toString("utf8");
                 var p = handlebars.compile(pagecontent);
+
                 data.assets = assets;
                 var page_out = p(data);
 
                 handlebars.registerPartial("content", page_out);
-
+                
                 //split
                 var f = hb.split('.');
                 if (f[1] !== 'hbs'){ continue; }
 
                 var filename = f[0] + '.html';
-                var out = template(page_data || data);
+
+                var all = page_data || data || {};
+                all.assets = assets;
+
+                var template = handlebars.compile(layoutContent.toString("utf8"));
+                var out = template(all);
                 
                 //FIXME: we compile 2 times just to parse
                 //{{assets}} within global options
                 //there must be a better way to do this
                 template = handlebars.compile(out);
-                out = template({ assets : assets, _marked : _marked });
-
+                out = template({ assets : assets });
+                
                 fs.writeFileSync(get_file("dist" + currentDest + filename), out);
+                
                 page_data = null;
             }
         })(baseLocation);
@@ -206,5 +233,5 @@ module.exports = function(grunt) {
     //register
     grunt.registerTask('default', ['watch']);
     grunt.registerTask('watcher', ['watch']);
-    grunt.registerTask('compile', ['less','Compile', 'Copy']);
+    grunt.registerTask('compile', ['less','Compile', 'Copy', 'Clean']);
 };

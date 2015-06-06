@@ -2,8 +2,19 @@
 exports.outLocation = '';
 
 //handlebars object
-exports.handlebars = function(Handlebars) {
-    
+exports.handlebars = function(Handlebars){
+
+    //this gets some information about
+    //current compiled page
+    //current.location
+    //current.layout
+    //current.hbs
+    //current.page
+    //current.data
+    var current = exports.current;
+
+    //Handlebars.registerHelper('helper', helper);
+    // Handlebars.registerPartial('partial', partial);
 };
 
 exports.data = {
