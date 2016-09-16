@@ -1,6 +1,6 @@
 {
   "name": "temply",
-  "version": "0.0.6",
+  "version": "1.0.0",
   "description": "Temply the stratic html creator",
   "main": "gruntfile.js",
   "dependencies": {
@@ -8,9 +8,10 @@
     "grunt-contrib-less": "~0.11.0",
     "grunt-contrib-watch": "~0.6.1",
     "marked": "",
-    "handlebars": ""
+    "handlebars": "",
+    "fs-extra" : ""
   },
-  "repository" : { 
+  "repository" : {
     "type" : "git",
     "url" : "http://github.com/Sweefty/temply.git"
   },

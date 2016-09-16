@@ -14,13 +14,6 @@ function init (){
 if (action === "i" || action === "init"){
     init();
 } else {
-    //console.log(process.argv);
-    //var grunt = require('grunt');
-    //grunt.task.init = function() {};
-    //var g = require('./gruntfile.js');
-    //g(grunt);
-    //grunt.tasks('watch');
-    
     var grunt = require("grunt");
     grunt.cli({
         gruntfile: __dirname + "/gruntfile.js",
