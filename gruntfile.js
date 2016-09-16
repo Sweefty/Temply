@@ -154,8 +154,9 @@ module.exports = function(grunt) {
                         } else {
                             fs.copySync(page, location, {});
                         }
+                    } else {
+                        fs.copySync(page, location, {});
                     }
-
                     continue;
                 }
 
