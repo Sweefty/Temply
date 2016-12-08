@@ -1,14 +1,13 @@
 #!/usr/bin/env node
 
 var path = require("path");
-var fs = require("fs");
-var copy = require('./copy');
+var fs     = require('fs-extra');
 
 var action = process.argv[2];
 function init (){
     var dest = path.resolve(process.cwd());
     var source = path.resolve(__dirname + "/source");
-    copy.FolderRecursiveSync(source, dest);
+    fs.copySync(source, dest);
 }
 
 if (action === "i" || action === "init"){
